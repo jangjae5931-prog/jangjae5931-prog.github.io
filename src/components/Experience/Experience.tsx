@@ -15,6 +15,7 @@ interface HistoryItem {
   title: string;
   description: string;
   folder?: string;
+  imageCount?: number;
 }
 
 const Experience = () => {
@@ -25,22 +26,24 @@ const Experience = () => {
   const history = (portfolioData.history as HistoryItem[])
     .filter(item => item.title !== '대구읍성예고편 제작')
     .map((item) => {
-      // 폴더 매핑 (1~12번 중 6번 제외)
-      const folderMap: { [key: string]: string } = {
-        "경상감영공원": "1_경상감영공원",
-        "영남제일관": "2_영남제일관",
-        "대구 콘서트 하우스": "3_대구콘서트하우스",
-        "계산성당": "4_계산성당",
-        "월정교 예고편": "5_월정교예고편",
-        "Ai 활용 자체 제작": "7_Ai자체제작",
-        "서대구역": "8_서대구역",
-        "대구읍성": "9_대구읍성",
-        "대구박물관 꽃 미디어아트": "10_대구박물관꽃",
-        "예술발전소 명화미디어아트": "11_예술발전소명화",
-        "예술발전소 별주부전 미디어아트": "12_예술발전소별주부전",
-        "이야기모바일 공모전": "13_이야기모바일"
+      // 폴더 및 이미지 개수 매핑 (현재 로컬 폴더 기준 전수 조사 결과)
+      const folderMap: { [key: string]: { folder: string, count: number } } = {
+        "경상감영공원": { folder: "1_경상감영공원", count: 5 },
+        "영남제일관": { folder: "2_영남제일관", count: 4 },
+        "대구 콘서트 하우스": { folder: "3_대구콘서트하우스", count: 4 },
+        "계산성당": { folder: "4_계산성당", count: 4 },
+        "월정교 예고편": { folder: "5_월정교예고편", count: 4 },
+        "Ai 활용 자체 제작": { folder: "7_Ai자체제작", count: 5 },
+        "서대구역": { folder: "8_서대구역", count: 4 },
+        "대구읍성": { folder: "9_대구읍성", count: 5 },
+        "대구박물관 꽃 미디어아트": { folder: "10_대구박물관꽃", count: 5 },
+        "예술발전소 명화미디어아트": { folder: "11_예술발전소명화", count: 7 },
+        "예술발전소 별주부전 미디어아트": { folder: "12_예술발전소별주부전", count: 6 },
+        "이야기모바일 공모전": { folder: "13_이야기모바일", count: 6 }
       };
-      return { ...item, folder: folderMap[item.title] };
+      
+      const config = folderMap[item.title];
+      return { ...item, folder: config?.folder, imageCount: config?.count || 0 };
     });
 
   return (
@@ -99,7 +102,7 @@ const Experience = () => {
                     pagination={{ clickable: true }}
                     className={styles.imageSwiper}
                   >
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
+                    {Array.from({ length: selectedItem.imageCount || 0 }, (_, i) => i + 1).map((num) => {
                       const imgSrc = `./projects/${selectedItem.folder}/${num}.jpg`;
                       return (
                         <SwiperSlide key={num}>
@@ -110,20 +113,6 @@ const Experience = () => {
                             <img 
                               src={imgSrc} 
                               alt={`${selectedItem.title} capture ${num}`}
-                              onLoad={(e) => {
-                                // 이미지가 로드되면 부모 슬라이드 표시
-                                const target = e.target as HTMLImageElement;
-                                if (target.parentElement?.parentElement) {
-                                  target.parentElement.parentElement.style.display = 'block';
-                                }
-                              }}
-                              onError={(e) => {
-                                // 이미지가 없으면 해당 슬라이드 자체를 숨김
-                                const target = e.target as HTMLImageElement;
-                                if (target.parentElement?.parentElement) {
-                                  target.parentElement.parentElement.style.display = 'none';
-                                }
-                              }}
                             />
                             <div className={styles.imageOverlay}>
                               <span className={styles.zoomIcon}>🔍</span>
