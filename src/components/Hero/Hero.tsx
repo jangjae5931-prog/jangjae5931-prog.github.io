@@ -8,33 +8,32 @@ const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.muted = true; // 강제 뮤트
-      video.load();
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log("Auto-play was prevented:", error);
-        });
-      }
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // 자동 재생 차단 시 대응
+      });
     }
   }, []);
 
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.gradientBackground}>
-        {/* 영상 배경 적용 (캐시 방지 및 강제 재생 로직) */}
+        {/* 영상 배경 적용 (포스터 제거 및 속성 단순화로 재생률 극대화) */}
         <video 
           ref={videoRef}
           autoPlay 
           muted 
           loop 
           playsInline 
-          poster="./assets/hero.png"
           className={styles.videoBackground}
+          src="./assets/hero-bg.mp4"
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            objectFit: 'cover',
+            backgroundColor: '#000' 
+          }}
         >
-          <source src="./assets/hero-bg.mp4?v=2" type="video/mp4" />
         </video>
 
         <div className={styles.glassOverlay}></div>
