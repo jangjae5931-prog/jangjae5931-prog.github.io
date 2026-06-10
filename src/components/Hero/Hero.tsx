@@ -17,7 +17,7 @@ const Hero = () => {
           preload="auto"
           className={styles.videoBackground}
         >
-          <source src="./assets/hero-bg.mp4" type="video/mp4" />
+          <source src="/assets/hero-bg.mp4" type="video/mp4" />
         </video>
 
         <div className={styles.glassOverlay}></div>
