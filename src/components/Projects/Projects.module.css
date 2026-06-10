@@ -218,6 +218,16 @@
 @media (max-width: 768px) {
   .projects { padding: 60px 0; }
   .title { font-size: 2.2rem; }
+  .swiperSlide { 
+    width: 300px !important; /* 모바일 전용 고정 너비 */
+    padding-bottom: 20px;
+  }
+  .card {
+    transform: scale(0.9); /* 모바일에서는 스케일 차이를 줄여 정렬 유지 */
+  }
+  .activeCard {
+    transform: scale(1) !important;
+  }
   .projectTitle { font-size: 1.4rem; }
   .info { margin-top: 1.5rem; }
   .tags { gap: 0.5rem; }

@@ -168,8 +168,12 @@
 
 @media (max-width: 600px) {
   .gradientBackground {
-    /* 모바일에서는 애니메이션 대신 세련된 정적 그라데이션으로 대체 (렉 제거 핵심) */
-    background: radial-gradient(circle at 0% 0%, #1a0b2e 0%, #0a0a0a 100%);
+    /* 모바일에서 동영상을 가리지 않도록 배경 투명화 및 z-index 조정 */
+    background: #0a0a0a;
+  }
+  .videoBackground {
+    display: block !important;
+    opacity: 1;
   }
   .name { font-size: 3rem; }
   .role { font-size: 1rem; }
