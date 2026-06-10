@@ -19,6 +19,7 @@ interface HistoryItem {
 
 const Experience = () => {
   const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   
   // 대구읍성 예고편(6번)을 제외한 나머지 데이터 필터링 및 폴더 매칭
   const history = (portfolioData.history as HistoryItem[])
@@ -98,20 +99,30 @@ const Experience = () => {
                     pagination={{ clickable: true }}
                     className={styles.imageSwiper}
                   >
-                    {[1, 2, 3, 4, 5].map((num) => (
-                      <SwiperSlide key={num}>
-                        <div className={styles.slideImageWrapper}>
-                          <img 
-                            src={`./projects/${selectedItem.folder}/${num}.jpg`} 
-                            alt={`${selectedItem.title} capture ${num}`}
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement;
-                              target.style.display = 'none'; // 이미지가 없으면 숨김
-                            }}
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ))}
+                    {[1, 2, 3, 4, 5].map((num) => {
+                      const imgSrc = `./projects/${selectedItem.folder}/${num}.jpg`;
+                      return (
+                        <SwiperSlide key={num}>
+                          <div 
+                            className={styles.slideImageWrapper}
+                            onClick={() => setZoomedImage(imgSrc)}
+                          >
+                            <img 
+                              src={imgSrc} 
+                              alt={`${selectedItem.title} capture ${num}`}
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none'; // 이미지가 없으면 숨김
+                              }}
+                            />
+                            <div className={styles.imageOverlay}>
+                              <span className={styles.zoomIcon}>🔍</span>
+                              <span className={styles.zoomText}>CLICK TO ENLARGE</span>
+                            </div>
+                          </div>
+                        </SwiperSlide>
+                      );
+                    })}
                   </Swiper>
                 </div>
                 
@@ -121,6 +132,28 @@ const Experience = () => {
                   <p className={styles.modalDescription}>{selectedItem.description}</p>
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* 이미지 확대 라이트박스 */}
+      <AnimatePresence>
+        {zoomedImage && (
+          <motion.div 
+            className={styles.lightboxBackdrop}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setZoomedImage(null)}
+          >
+            <motion.div 
+              className={styles.lightboxContent}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
+              <img src={zoomedImage} className={styles.lightboxImage} alt="Zoomed view" />
             </motion.div>
           </motion.div>
         )}
