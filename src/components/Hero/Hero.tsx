@@ -1,25 +1,40 @@
+import { useEffect, useRef } from 'react';
 import styles from './Hero.module.css';
 import portfolioData from '../../data/portfolio.json';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
   const { profile } = portfolioData;
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.muted = true; // 강제 뮤트
+      video.load();
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Auto-play was prevented:", error);
+        });
+      }
+    }
+  }, []);
 
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.gradientBackground}>
-        {/* 영상 배경 적용 (렉 해결 핵심) */}
+        {/* 영상 배경 적용 (캐시 방지 및 강제 재생 로직) */}
         <video 
-          key="hero-video"
+          ref={videoRef}
           autoPlay 
           muted 
           loop 
           playsInline 
           poster="./assets/hero.png"
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           className={styles.videoBackground}
         >
-          <source src="./assets/hero-bg.mp4" type="video/mp4" />
+          <source src="./assets/hero-bg.mp4?v=2" type="video/mp4" />
         </video>
 
         <div className={styles.glassOverlay}></div>

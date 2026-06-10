@@ -169,14 +169,17 @@
 @media (max-width: 600px) {
   .hero {
     padding: 80px 20px;
+    background-color: #000; /* 비디오 로딩 전 기본 배경 */
   }
   .gradientBackground {
-    background: transparent;
+    background: none !important;
+    background-color: transparent !important;
   }
   .videoBackground {
     display: block !important;
-    opacity: 1;
-    filter: brightness(0.6); /* 필터 최소화 */
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: brightness(0.5); /* 모바일에서는 텍스트 가독성을 위해 조금 더 어둡게 */
   }
   .name { font-size: 3.5rem; }
   .role { font-size: 1rem; }
