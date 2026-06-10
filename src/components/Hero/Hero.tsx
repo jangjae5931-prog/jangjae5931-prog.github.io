@@ -15,11 +15,11 @@ const Hero = () => {
           muted 
           loop 
           playsInline 
-          preload="auto"
+          poster="./assets/hero.png"
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           className={styles.videoBackground}
         >
-          <source src="/assets/hero-bg.mp4" type="video/mp4" />
+          <source src="./assets/hero-bg.mp4" type="video/mp4" />
         </video>
 
         <div className={styles.glassOverlay}></div>

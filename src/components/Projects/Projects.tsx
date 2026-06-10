@@ -59,9 +59,9 @@ const Projects = () => {
           effect={isMobile ? undefined : 'coverflow'}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={isMobile ? 1.1 : 'auto'}
-          spaceBetween={isMobile ? 20 : 0}
-          speed={isMobile ? 300 : 1000}
+          slidesPerView={'auto'}
+          spaceBetween={isMobile ? 30 : 0}
+          speed={isMobile ? 500 : 1000}
           coverflowEffect={isMobile ? undefined : {
             rotate: 0,
             stretch: 0,
@@ -80,9 +80,8 @@ const Projects = () => {
                   className={`${styles.card} ${isActive ? styles.activeCard : ''}`}
                   onClick={() => isActive && setSelectedProject(project)}
                   animate={isMobile ? {
-                    scale: 1,
-                    opacity: 1,
-                    filter: 'grayscale(0)'
+                    scale: isActive ? 1 : 0.9,
+                    opacity: isActive ? 1 : 0.6,
                   } : (isActive ? {
                     y: [0, -10, 0],
                     scale: 1,
@@ -94,7 +93,7 @@ const Projects = () => {
                     opacity: 0.3,
                     filter: 'grayscale(1)'
                   })}
-                  transition={isMobile ? { duration: 0 } : {
+                  transition={isMobile ? { duration: 0.3 } : {
                     duration: 3,
                     repeat: Infinity,
                     ease: "easeInOut"

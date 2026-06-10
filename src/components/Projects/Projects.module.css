@@ -222,20 +222,27 @@
     padding: 20px 0;
   }
   .swiperSlide { 
-    width: 85% !important; /* 화면에 꽉 차게 보이도록 조정 */
+    width: 80vw; /* 뷰포트 너비 기준으로 고정하여 중앙 정렬 보장 */
     padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
   }
   .card {
-    transform: none !important; /* 모바일에서 스케일 완전 제거 */
-    filter: none !important;
-    opacity: 1 !important;
+    width: 100%;
+    transform: none;
+    filter: none;
+    opacity: 1;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .activeCard {
+    z-index: 10;
   }
   .projectTitle { 
-    font-size: 1.8rem; 
+    font-size: 1.5rem; 
     margin-top: 1rem;
   }
   .tag {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
   .info { margin-top: 1.5rem; }
   .tags { gap: 0.5rem; }
