@@ -99,7 +99,7 @@ const Experience = () => {
                     pagination={{ clickable: true }}
                     className={styles.imageSwiper}
                   >
-                    {[1, 2, 3, 4, 5].map((num) => {
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => {
                       const imgSrc = `./projects/${selectedItem.folder}/${num}.jpg`;
                       return (
                         <SwiperSlide key={num}>
@@ -110,9 +110,19 @@ const Experience = () => {
                             <img 
                               src={imgSrc} 
                               alt={`${selectedItem.title} capture ${num}`}
-                              onError={(e) => {
+                              onLoad={(e) => {
+                                // 이미지가 로드되면 부모 슬라이드 표시
                                 const target = e.target as HTMLImageElement;
-                                target.style.display = 'none'; // 이미지가 없으면 숨김
+                                if (target.parentElement?.parentElement) {
+                                  target.parentElement.parentElement.style.display = 'block';
+                                }
+                              }}
+                              onError={(e) => {
+                                // 이미지가 없으면 해당 슬라이드 자체를 숨김
+                                const target = e.target as HTMLImageElement;
+                                if (target.parentElement?.parentElement) {
+                                  target.parentElement.parentElement.style.display = 'none';
+                                }
                               }}
                             />
                             <div className={styles.imageOverlay}>
