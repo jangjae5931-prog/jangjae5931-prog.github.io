@@ -216,19 +216,29 @@
 }
 
 @media (max-width: 768px) {
-  .projects { padding: 60px 0; }
-  .title { font-size: 2.2rem; }
+  .projects { padding: 40px 0; }
+  .title { font-size: 2rem; }
+  .swiperWrapper {
+    padding: 40px 0;
+  }
   .swiperSlide { 
-    width: 300px !important; /* 모바일 전용 고정 너비 */
-    padding-bottom: 20px;
+    width: 280px !important;
+    padding-bottom: 0;
   }
   .card {
-    transform: scale(0.9); /* 모바일에서는 스케일 차이를 줄여 정렬 유지 */
+    transform: scale(1) !important;
+    filter: grayscale(0) opacity(1);
+    transition: none;
+  }
+  .card:not(.activeCard) {
+    opacity: 0.5;
+    filter: grayscale(0.5);
   }
   .activeCard {
-    transform: scale(1) !important;
+    opacity: 1 !important;
+    filter: grayscale(0) !important;
   }
-  .projectTitle { font-size: 1.4rem; }
+  .projectTitle { font-size: 1.2rem; }
   .info { margin-top: 1.5rem; }
   .tags { gap: 0.5rem; }
   .tag { font-size: 0.75rem; }

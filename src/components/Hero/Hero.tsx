@@ -14,6 +14,7 @@ const Hero = () => {
           muted 
           loop 
           playsInline 
+          preload="auto"
           className={styles.videoBackground}
         >
           <source src="./assets/hero-bg.mp4" type="video/mp4" />

@@ -60,6 +60,7 @@ const Projects = () => {
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={'auto'}
+          spaceBetween={isMobile ? 20 : 0}
           speed={isMobile ? 300 : 1000}
           coverflowEffect={{
             rotate: 0,
@@ -80,8 +81,8 @@ const Projects = () => {
                   onClick={() => isActive && setSelectedProject(project)}
                   animate={(!isMobile && isActive) ? {
                     y: [0, -10, 0],
-                  } : { y: 0 }}
-                  transition={{
+                  } : { y: 0, scale: isMobile ? 1 : (isActive ? 1 : 0.8) }}
+                  transition={isMobile ? { duration: 0 } : {
                     duration: 3,
                     repeat: Infinity,
                     ease: "easeInOut"
