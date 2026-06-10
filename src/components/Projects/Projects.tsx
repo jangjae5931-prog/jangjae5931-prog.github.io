@@ -56,13 +56,13 @@ const Projects = () => {
 
       <div className={styles.swiperWrapper}>
         <Swiper
-          effect={isMobile ? 'slide' : 'coverflow'}
+          effect={isMobile ? undefined : 'coverflow'}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={isMobile ? 1.2 : 'auto'}
-          spaceBetween={isMobile ? 30 : 0}
-          speed={isMobile ? 400 : 1000}
-          coverflowEffect={{
+          slidesPerView={isMobile ? 1.1 : 'auto'}
+          spaceBetween={isMobile ? 20 : 0}
+          speed={isMobile ? 300 : 1000}
+          coverflowEffect={isMobile ? undefined : {
             rotate: 0,
             stretch: 0,
             depth: 100,
@@ -79,10 +79,22 @@ const Projects = () => {
                 <motion.div 
                   className={`${styles.card} ${isActive ? styles.activeCard : ''}`}
                   onClick={() => isActive && setSelectedProject(project)}
-                  animate={(!isMobile && isActive) ? {
+                  animate={isMobile ? {
+                    scale: 1,
+                    opacity: 1,
+                    filter: 'grayscale(0)'
+                  } : (isActive ? {
                     y: [0, -10, 0],
-                  } : { y: 0 }}
-                  transition={{
+                    scale: 1,
+                    opacity: 1,
+                    filter: 'grayscale(0)'
+                  } : {
+                    y: 0,
+                    scale: 0.8,
+                    opacity: 0.3,
+                    filter: 'grayscale(1)'
+                  })}
+                  transition={isMobile ? { duration: 0 } : {
                     duration: 3,
                     repeat: Infinity,
                     ease: "easeInOut"

@@ -10,11 +10,13 @@ const Hero = () => {
       <div className={styles.gradientBackground}>
         {/* 영상 배경 적용 (렉 해결 핵심) */}
         <video 
+          key="hero-video"
           autoPlay 
           muted 
           loop 
           playsInline 
           preload="auto"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           className={styles.videoBackground}
         >
           <source src="/assets/hero-bg.mp4" type="video/mp4" />
