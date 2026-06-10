@@ -228,6 +228,22 @@
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
 }
 
+/* Swiper 페이지네이션 커스텀 */
+.sliderContainer :global(.swiper-pagination-bullet) {
+  background: #fff !important;
+  opacity: 0.2 !important;
+  width: 10px;
+  height: 10px;
+  margin: 0 6px !important;
+  transition: all 0.3s ease;
+}
+
+.sliderContainer :global(.swiper-pagination-bullet-active) {
+  background: #007aff !important; /* 파란색 강조 */
+  opacity: 1 !important;
+  transform: scale(1.2);
+}
+
 .infoContainer {
   flex: 1;
   padding: 60px;

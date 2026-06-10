@@ -8,6 +8,11 @@
   overflow: hidden;
 }
 
+.titleContainer {
+  text-align: center;
+  width: 100%;
+}
+
 .title {
   font-size: 3rem;
   font-weight: 900;
